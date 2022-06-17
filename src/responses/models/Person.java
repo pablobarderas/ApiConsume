@@ -1,6 +1,9 @@
 package responses.models;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Person {
 
@@ -12,7 +15,7 @@ public class Person {
     private String height;
     private String homeworld;
     private String mass;
-    private  String name;
+    private String name;
     private String skin_color;
     private String created;
     private String edited;
@@ -22,7 +25,8 @@ public class Person {
 
     private String[] vehicles;
 
-    public Person() { }
+    public Person() {
+    }
 
     public Person(String birth_year, String eye_color, String[] films, String gender, String hair_color, String height, String homeworld, String mass, String name, String skin_color, String created, String edited, String[] species, String[] starships, String url, String[] vehicles) {
         this.birth_year = birth_year;
@@ -45,7 +49,7 @@ public class Person {
 
     //@Override
     public String toString() {
-        return "name= " + name  +
+        return "name= " + name +
                 ", birth_year= " + birth_year +
                 ", eye_color= " + eye_color +
                 ", gender= " + gender +
@@ -191,4 +195,40 @@ public class Person {
     public void setVehicles(String[] vehicles) {
         this.vehicles = vehicles;
     }
+
+    /**
+     * TODO - Make code reusable
+     */
+    public String traduceHomeWorld(String urlHomeWorld) {
+
+        try {
+            // New request
+            URL url = new URL(urlHomeWorld + "?format=json");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+            int responseCode = conn.getResponseCode();
+
+            // Translate
+            if (responseCode != 200) {
+                throw new RuntimeException("An error has occurred" + responseCode);
+            } else {
+                StringBuilder informationString = new StringBuilder();
+                Scanner sc = new Scanner(url.openStream());
+                while (sc.hasNext()) {
+                    informationString.append(sc.nextLine());
+                }
+                sc.close();
+
+                return String.valueOf(informationString);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
 }

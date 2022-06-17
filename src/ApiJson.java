@@ -48,7 +48,8 @@ public class ApiJson {
         System.out.println(person.getResults().get(0).getHomeworld());
 
         // Get url homeworld
-        String lukeNatal = person.traduceHomeWorld(person.getResults().get(0).getHomeworld());
+        String lukeNatal = person.getResults().get(0)
+                .traduceHomeWorld(person.getResults().get(0).getHomeworld());
         System.out.println(lukeNatal);
     }
 
