@@ -16,7 +16,7 @@ public class ApiRequest {
     public void connection() {
 
         try {
-            URL url = new URL("https://swapi.dev/api/people/?search=" + getNameSearch() + "&format=json");
+                URL url = new URL("https://swapi.dev/api/people/?search=" + getNameSearch() + "&format=json");
 
             // Open connection
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();

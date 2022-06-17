@@ -44,9 +44,12 @@ public class ApiJson {
         System.out.println("Total results: " + person.getSize());
 
         // All results and their attributes
-
         System.out.println(person.getResults());
+        System.out.println(person.getResults().get(0).getHomeworld());
 
+        // Get url homeworld
+        String lukeNatal = person.traduceHomeWorld(person.getResults().get(0).getHomeworld());
+        System.out.println(lukeNatal);
     }
 
 }
