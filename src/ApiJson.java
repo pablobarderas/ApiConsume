@@ -3,6 +3,7 @@ import apiConsume.ApiRequest;
 import com.google.gson.Gson;
 import responses.models.GeneralResponses;
 import responses.models.Person;
+import responses.models.Planet;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -19,16 +20,29 @@ public class ApiJson {
 
         // Request a petition
 
+        // TODO HACER LAS CONEXIONES EN LA CLASE PERSON PARA MÁS SIMPLICIDAD EN CUANTO A RESOLUCIÓN DE NOMBRES
+
         // Request data
         String name = JOptionPane.showInputDialog("Introduce a Star Wars Character");
 
-        // New URL request
+        // Name URL request
         ApiRequest nameRequest = new ApiRequest(name);
         nameRequest.connection();
 
         // Create gson and parse Json to Java object
-        Gson gson = new Gson();
-        GeneralResponses person = gson.fromJson(nameRequest.getJsonString(), GeneralResponses.class);
+        Gson gsonName = new Gson();
+        GeneralResponses person = gsonName.fromJson(nameRequest.getJsonString(), GeneralResponses.class);
+
+        // Planet URL request
+        ApiRequest planetRequest = new ApiRequest(person.getResults().get(0).getName());
+
+        Gson gsonPlanet = new Gson();
+        Planet planet = gsonPlanet.fromJson(planetRequest.getPlanetString(), Planet.class);
+
+        // Set homeworld to JsonString
+        for (int i = 0; i < person.getSize(); i++) {
+            person.getResults().get(i).traduceHomeWorld();
+        }
 
         // StringBuilder for store names
         StringBuilder names = new StringBuilder();
@@ -45,12 +59,7 @@ public class ApiJson {
 
         // All results and their attributes
         System.out.println(person.getResults());
-        System.out.println(person.getResults().get(0).getHomeworld());
 
-        // Get url homeworld
-        String lukeNatal = person.getResults().get(0)
-                .traduceHomeWorld(person.getResults().get(0).getHomeworld());
-        System.out.println(lukeNatal);
     }
 
 }

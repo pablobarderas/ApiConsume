@@ -9,6 +9,8 @@ public class ApiRequest {
     private String nameSearch;
     private String jsonString;
 
+    private String planetString;
+
     public ApiRequest(String nameSearch) {
         this.nameSearch = nameSearch;
     }
@@ -69,5 +71,13 @@ public class ApiRequest {
 
     public void setJsonString(String jsonString) {
         this.jsonString = jsonString;
+    }
+
+    public String getPlanetString() {
+        return planetString;
+    }
+
+    public void setPlanetString(String planetString) {
+        this.planetString = planetString;
     }
 }
