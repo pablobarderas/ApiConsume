@@ -1,5 +1,7 @@
 package responses.models;
 
+import com.google.gson.Gson;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
@@ -91,7 +93,12 @@ public class Person {
                 }
                 sc.close();
 
-                setHomeworld(String.valueOf(informationString));
+
+                // Get name from json
+                Gson gsonPlanet = new Gson();
+                Planet planet = gsonPlanet.fromJson(String.valueOf(informationString), Planet.class);
+
+                setHomeworld(planet.getName());
 
             }
 

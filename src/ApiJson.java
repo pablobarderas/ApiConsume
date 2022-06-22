@@ -34,10 +34,9 @@ public class ApiJson {
         GeneralResponses person = gsonName.fromJson(nameRequest.getJsonString(), GeneralResponses.class);
 
         // Planet URL request
-        ApiRequest planetRequest = new ApiRequest(person.getResults().get(0).getName());
+        //ApiRequest planetRequest = new ApiRequest(person.getResults().get(0).getName());
 
-        Gson gsonPlanet = new Gson();
-        Planet planet = gsonPlanet.fromJson(planetRequest.getPlanetString(), Planet.class);
+
 
         // Set homeworld to JsonString
         for (int i = 0; i < person.getSize(); i++) {
@@ -46,15 +45,21 @@ public class ApiJson {
 
         // StringBuilder for store names
         StringBuilder names = new StringBuilder();
+        StringBuilder planets = new StringBuilder();
+
 
         // Name of people from search results
         for (int i = 0; i < person.getSize(); i++) {
             names.append(person.getResults().get(i).getName()).append("\n");
         }
+        // Name of planets from search results
+        for (int i = 0; i < person.getSize(); i++) {
+            planets.append(person.getResults().get(i).getHomeworld()).append("\n");
+        }
 
         // Display (mostrar) data on window
         JOptionPane.showMessageDialog(null, "Names: \n"
-                + names);
+                + names + "\nPlanet: " + planets);
         System.out.println("Total results: " + person.getSize());
 
         // All results and their attributes
